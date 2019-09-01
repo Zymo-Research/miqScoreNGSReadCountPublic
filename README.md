@@ -23,7 +23,7 @@ This package is designed to be either copied in as a Python module or (my prefer
 The general workflow for this system is to load a set of standard reference data that will describe various properties of your standard sample, generate read counts or some other measure of frequency or relative abundance of signals from your analysis of the standard stamples, and create a Python object from these that contains a MIQ Score for the sample as well as some plots that may give information as to the source of any bias or inaccuracy in the test.
 
 ----------
-#####miqScoreNGSReadCountPublic.referenceHandler.StandardReference(standardDataPath)
+##### miqScoreNGSReadCountPublic.referenceHandler.StandardReference(standardDataPath)
 This method is your most likely starting point for the use of this package.  This method will instantiate your StandardReference class object.  The path should point to JSON formatted key:values that describe the standard as well as how data may be delivered and aliases for template names.  For an example of this using the Zymo Research Mock Microbial Community Standard, please look in the reference handler directory of this package.
 
 | Attribute        | Type             | Description |
@@ -36,13 +36,13 @@ expectedValues | dict of dicts | Dictionary of analysisMethod:readSource:expecte
 analysisMethods | list | List of analysis methods from the above value.
 
 --------
-#####miqScoreNGSReadCountPublic.MiqScoreCalculator(standardReference: *miqScoreNGSReadCountPublic.referenceHandler.StandardReference*, analysisMethod:*str*, percentToleranceInStandard:*[int, float]=0*, floor:*[int, float]=0*)
+##### miqScoreNGSReadCountPublic.MiqScoreCalculator(standardReference: *miqScoreNGSReadCountPublic.referenceHandler.StandardReference*, analysisMethod:*str*, percentToleranceInStandard:*[int, float]=0*, floor:*[int, float]=0*)
 This method will instantiate a MIQ Score calculator object, which is the "business end" of this entire package.  Required arguments include a standard reference of StandardReference type (see previous item for more info on that type) and an analysis method (chosen from possible analysis methods for the standard).  If you are unsure of potential analysis methods for the standard, standardReference.analysisMethods will list them if the object is loaded, or they will be visible in the JSON storing the reference data.  Optional arguments include percentToleranceInStandard, which represents the manufacturing tolerances of your standard expressed as a percentage (enter 15 for 15% and not 0.15), and floor, which is a minimum value for the miqScore (defaults to zero, but can be set to None if unwanted).  The percent tolerance will be used to adjust any deviations from expected that are observed in your measurement, as this package assumes that any deviation from expected that can be explained by manufacturing tolerances in the standard should be treated as such.  Generally, having the miq score floor out to zero improves the ease of understanding and rapid analysis for scores where there is an upper limit of 100 and no set lower limit.
 
 #####miqScoreNGSReadCountPublic.MiqScoreCalculator.calculateMiq(sampleData:*dict*, sampleID:str=*None*)
 This method will calculate a MIQ score for a set of input data and return a MiqScoreData object.  The MiqScoreData object is the main output from this package and has the following attributes and methods:
 
-#####miqScoreNGSReadCountPublic.MiqScoreCalculator.MiqScoreData
+##### miqScoreNGSReadCountPublic.MiqScoreCalculator.MiqScoreData
 Reads will generally be divided into expected/reference reads and unexpected/nonreference reads here.  Expected/reference reads will be only reads that aligned to an expected read source.  Unexpected/nonreference reads will be those that aligned to something other than an expected reference sequence, were unalignable, or were removed before alignment.  These can help diagnose problems in library quality or other issues.  These are not used to calculate the MIQ score (although they can be used to explain an unexpectedly low score due to issues with sample/library preparation and sequencing).
 
 | Attribute/method        | Type             | Description |
@@ -67,7 +67,7 @@ jsonOutput	|	str	|	Returns a string of JSON-formatted output to store a detailed
 
 -----
 
-#####miqScoreNGSReadCountPublic.MiqScoreCalculator.generateReport(replacementTable:*dict*, template:*str*, sampleMiq:*MiqScoreData*, goodExampleMiq:*MiqScoreData*, badExampleMiq:*MiqScoreData*, readFatePrintNames:*dict=None*)
+##### miqScoreNGSReadCountPublic.MiqScoreCalculator.generateReport(replacementTable:*dict*, template:*str*, sampleMiq:*MiqScoreData*, goodExampleMiq:*MiqScoreData*, badExampleMiq:*MiqScoreData*, readFatePrintNames:*dict=None*)
 Reads will generally be divided into expected/reference reads and unexpected/nonreference reads here.  Expected/reference reads will be only reads that aligned to an expected read source.  Unexpected/nonreference reads will be those that aligned to something other than an expected reference sequence, were unalignable, or were removed before alignment.  These can help diagnose problems in library quality or other issues.  These are not used to calculate the MIQ score (although they can be used to explain an unexpectedly low score due to issues with sample/library preparation and sequencing).
 
 | Attribute/method        | Type             | Description |
@@ -113,7 +113,6 @@ This license restricts the usage of this application for non-open sourced system
 We would like to thank the following, without whom this would not have happened:
 * The Python Foundation
 * The staff at Zymo Research
-* The microbiomics community for making us aware of this need
 * Our customers
 
 ---------------------------------------------------------------------------------------------------------------------
