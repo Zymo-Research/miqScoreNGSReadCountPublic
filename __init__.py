@@ -162,7 +162,7 @@ class MiqScoreData(object):
         return json.dumps(resultTable, indent=4)
 
 
-def loadExampleData(goodMiqPath:str, badMiqPath:str, referenceData:[str, referenceHandler.StandardReference]):
+def loadExampleData(goodMiqPath:str, badMiqPath:str, referenceData:[str, referenceHandler.StandardReference], analysisMethod:str):
     import os
     import json
     if not os.path.isfile(goodMiqPath):
@@ -181,7 +181,7 @@ def loadExampleData(goodMiqPath:str, badMiqPath:str, referenceData:[str, referen
         file.close()
         sampleCounts = report["nonreferenceReadCounts"]
         sampleCounts.update(report["referenceReadCounts"])
-        calculator = MiqScoreCalculator(referenceData, analysisMethod="16s", percentToleranceInStandard=report["percentToleranceInStandard"], floor=0)
+        calculator = MiqScoreCalculator(referenceData, analysisMethod=analysisMethod, percentToleranceInStandard=report["percentToleranceInStandard"], floor=0)
         miqScoreResult = calculator.calculateMiq(sampleCounts, report["sampleID"])
         miqScoreResult.makeReadFateChart()
         miqScoreResult.makeRadarPlots()
