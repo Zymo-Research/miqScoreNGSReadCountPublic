@@ -100,6 +100,7 @@ Patch release: No changes to parameters
 - **Justin J. Lin**  - *Design* - [jjlinscientist](https://github.com/jjlinscientist)
 - **Ryan Kemp**  - *Design* - [Zymo Research](https://www.zymoresearch.com)
 - **Brian Janssen**  - *Design* - [Zymo Research](https://www.zymoresearch.com)
+- **Christopher E. Mason** - *Guidance, Testing* - [Cornell University](https://research.cornell.edu/researchers/christopher-e-mason)
 
 See also the list of [contributors](https://github.com/Zymo-Research/miqScoreNGSReadCountPublic/contributors) who participated in this project.
 
