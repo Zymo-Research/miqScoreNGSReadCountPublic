@@ -6,7 +6,8 @@ class StandardReference(object):
                  "itemIDs",
                  "sortings",
                  "expectedValues",
-                 "analysisMethods"]
+                 "analysisMethods",
+                 "percentTolerance"]
 
     def __init__(self, standardDataPath:str):
         import os
@@ -36,6 +37,10 @@ class StandardReference(object):
         self.sortings = rawData["sortings"]
         self.expectedValues = rawData["expectedValues"]
         self.analysisMethods = list(self.expectedValues.keys())
+        if "percentTolerance" in rawData:
+            self.percentTolerance = rawData["percentTolerance"]
+        else:
+            self.percentTolerance = None
 
 
 def determineExpectedReadSources(analysisMethod:str, standardReference:StandardReference):

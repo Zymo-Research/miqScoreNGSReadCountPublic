@@ -19,12 +19,12 @@ class MiqScoreCalculator(object):
     Takes in an expected values dictionary with percentages.
     Can take in a percent tolerance in standard and a floor value for miq score
     '''
-    def __init__(self, standardReference: referenceHandler.StandardReference, analysisMethod:str, percentToleranceInStandard:[int, float]=0, floor:[int, float]=0):
+    def __init__(self, standardReference: referenceHandler.StandardReference, analysisMethod:str, floor:[int, float]=0):
         self.standardReference = standardReference
         self.analysisMethod = analysisMethod
         if not analysisMethod in standardReference.analysisMethods:
             raise ValueError("Analysis method %s not found in analysis methods for the chosen standard. Valud methods: %s" %(analysisMethod, standardReference.analysisMethods))
-        self.percentToleranceInStandard = percentToleranceInStandard
+        self.percentToleranceInStandard = standardReference.percentTolerance
         self.floor = floor
         self.expectedReadSources = []
         for source in standardReference.expectedValues[analysisMethod]:
@@ -181,7 +181,7 @@ def loadExampleData(goodMiqPath:str, badMiqPath:str, referenceData:[str, referen
         file.close()
         sampleCounts = report["nonreferenceReadCounts"]
         sampleCounts.update(report["referenceReadCounts"])
-        calculator = MiqScoreCalculator(referenceData, analysisMethod=analysisMethod, percentToleranceInStandard=report["percentToleranceInStandard"], floor=0)
+        calculator = MiqScoreCalculator(referenceData, analysisMethod=analysisMethod, floor=0)
         miqScoreResult = calculator.calculateMiq(sampleCounts, report["sampleID"])
         miqScoreResult.makeReadFateChart()
         miqScoreResult.makeRadarPlots()
